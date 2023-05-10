@@ -15,8 +15,6 @@ public class PlayerCar : MonoBehaviour
         Rigidbody2D = GetComponent<Rigidbody2D>();
 
         SpriteRenderer = GetComponent<SpriteRenderer>();
-        SpriteRenderer.sprite =
-            GameDataManager.Instance.anh[GameDataManager.Instance.playerData.currentSkin];
 
         SpriteRenderer.flipX = false;
     }

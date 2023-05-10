@@ -14,8 +14,6 @@ public class Robot : Singleton<Robot>
     void Start()
     {
         gameData = GameDataManager.Instance;
-
-        anh.sprite = gameData.anh[gameData.playerData.currentSkin];
     }
 
     private void OnValidate()

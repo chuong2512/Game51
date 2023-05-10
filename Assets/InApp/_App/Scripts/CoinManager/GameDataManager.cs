@@ -10,12 +10,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     /*----Data variable-------------------------------------------------------------------------------------------------*/
     [HideInInspector] public PlayerData playerData;
 
-    public Sprite[] anh;
-
     public LevelSO LevelSO;
-
-    [SerializeField] private Vector3 virusPos;
-    [SerializeField] private Vector3 knivesPos;
 
     private GameController _gameController;
     
@@ -32,13 +27,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         Application.targetFrameRate = Mathf.Max(60, Screen.currentResolution.refreshRate);
     }
 
-
-    private void CreatVirus()
-    {
-        Cycle cycle = Instantiate(_levelData.Cycle, virusPos, quaternion.identity);
-        Virus virus = cycle.GetComponentInChildren<Virus>();
-        virus.SetupVirus(_levelData.CycleScale);
-    }
+    
 
     public Knife CreatKnife()
     {
@@ -48,8 +37,7 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
         }
 
         _remainKnives--;
-        Knife newKnife = Instantiate(_levelData.Knife, knivesPos, quaternion.identity);
-        newKnife.SetKnife(_levelData.Speed);
+        Knife newKnife = new Knife();
         return newKnife;
     }
     
@@ -57,7 +45,6 @@ public class GameDataManager : PersistentSingleton<GameDataManager>
     {
         _levelData = LevelSO.GetLevelData(_level);
         _remainKnives = _levelData.KnivesAmount;
-        CreatVirus();
     }
 
     public bool IsRemainKnife()

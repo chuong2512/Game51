@@ -17,7 +17,7 @@ public class GameUI : Singleton<GameUI>
 
     void Start()
     {
-        currentState = StateGame.Pause;
+        currentState = StateGame.Playing;
     }
 
     public void ExitGame()
@@ -57,5 +57,45 @@ public class GameUI : Singleton<GameUI>
         }
 
         SceneManager.LoadScene("Game");
+    }
+
+    private Checker[] checkers;
+
+    public void Check()
+    {
+        if (CheckWin())
+        {
+            ShowWin();
+        }
+    }
+
+    public bool CheckWin()
+    {
+        for (int i = 0; i < checkers.Length; i++)
+        {
+            if (!checkers[i].CheckTrue())
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void Hint()
+    {
+        if (GameDataManager.Instance.playerData.intDiamond >= 10)
+        {
+            GameDataManager.Instance.playerData.SubDiamond(10);
+
+            for (int i = 0; i < checkers.Length; i++)
+            {
+                if (!checkers[i].CheckTrue())
+                {
+                    checkers[i].Hint();
+                    return;
+                }
+            }
+        }
     }
 }

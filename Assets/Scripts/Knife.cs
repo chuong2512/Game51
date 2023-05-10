@@ -60,7 +60,6 @@ public class Knife : MonoBehaviour
             _rigidbody.bodyType = RigidbodyType2D.Static;
             _isStatic = true;
             //Check win 
-            GameManager.Instance.CheckPassLevel();
         }
         else if(col.gameObject.CompareTag("Knife") && !_isStatic)
         {

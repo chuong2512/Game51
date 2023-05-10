@@ -16,7 +16,5 @@ public class Cycle : MonoBehaviour
 
     private void SetSkin()
     {
-        //Debug.Log(_dataManager.playerData.currentSkin);
-        sprite.sprite = _dataManager.anh[_dataManager.playerData.currentSkin];
     }
 }

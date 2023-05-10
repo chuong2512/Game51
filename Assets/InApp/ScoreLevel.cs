@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Score : MonoBehaviour
+public class ScoreLevel : MonoBehaviour
 {
     public TextMeshProUGUI high;
 

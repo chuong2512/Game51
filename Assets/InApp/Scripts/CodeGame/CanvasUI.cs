@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class CanvasUI : Singleton<CanvasUI>
 {
     public Button start, exit;
+    public GameObject Sub;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,14 @@ public class CanvasUI : Singleton<CanvasUI>
 
     public void NewGame()
     {
-        SceneManager.LoadScene("Game");
+        if (GameDataManager.Instance.playerData.time > 0)
+        {
+            SceneManager.LoadScene("Game");
+        }
+        else
+        {
+            Sub.SetActive(true);
+        }
     }
 
     public void ContinueGame()

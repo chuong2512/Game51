@@ -18,6 +18,22 @@ public class PlayerData : BaseData
     public int currentSkin;
     public bool[] listSkins;
 
+    public long time;
+    public string timeRegister;
+
+    public void SetTimeRegister(long timeSet)
+    {
+        timeRegister = DateTime.Now.ToBinary().ToString();
+        time = timeSet;
+        Save();
+    }
+
+    public void ResetTime()
+    {
+        time = 0;
+        Save();
+    }
+    
     public Action<int> onChangeDiamond;
     public Action<int> onChangePoint;
 
@@ -41,6 +57,9 @@ public class PlayerData : BaseData
 
     public override void ResetData()
     {
+        timeRegister = DateTime.Now.ToBinary().ToString();
+        time = 30 * 24 * 60 * 60;
+        
         intDiamond = 0;
         currentSkin = 0;
         highPoint = 0;
