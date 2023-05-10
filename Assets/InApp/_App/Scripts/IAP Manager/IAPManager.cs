@@ -7,19 +7,19 @@ using UnityEngine.Purchasing;
 
 public class Key
 {
-    public const string PACK1 = "game50_pack1";
-    public const string PACK2 = "game50_pack2";
-    public const string PACK3 = "game50_pack3";
-    public const string PACK4 = "game50_pack4";
-    public const string PACK5 = "game50_pack5";
-    public const string PACK6 = "game50_pack6";
-    
-    
-    public const string PACK1_REGISTER = "register_game50_pack1";
-    public const string PACK2_REGISTER = "register_game50_pack2";
-    public const string PACK3_REGISTER = "register_game50_pack3";
-    public const string PACK4_REGISTER = "register_game50_pack4";
-    public const string PACK5_REGISTER = "register_game50_pack5";
+    public const string PACK1 = "game51_pack1";
+    public const string PACK2 = "game51_pack2";
+    public const string PACK3 = "game51_pack3";
+    public const string PACK4 = "game51_pack4";
+    public const string PACK5 = "game51_pack5";
+    public const string PACK6 = "game51_pack6";
+
+
+    public const string PACK1_REGISTER = "register_game51_pack1";
+    public const string PACK2_REGISTER = "register_game51_pack2";
+    public const string PACK3_REGISTER = "register_game51_pack3";
+    public const string PACK4_REGISTER = "register_game51_pack4";
+    public const string PACK5_REGISTER = "register_game51_pack5";
 }
 
 public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
@@ -56,6 +56,8 @@ public class IAPManager : PersistentSingleton<IAPManager>, IStoreListener
         builder.AddProduct(Key.PACK2, ProductType.Consumable);
         builder.AddProduct(Key.PACK3, ProductType.Consumable);
         builder.AddProduct(Key.PACK4, ProductType.Consumable);
+        builder.AddProduct(Key.PACK5, ProductType.Consumable);
+        builder.AddProduct(Key.PACK6, ProductType.Consumable);
         builder.AddProduct(Key.PACK1_REGISTER, ProductType.Subscription);
         builder.AddProduct(Key.PACK2_REGISTER, ProductType.Subscription);
         builder.AddProduct(Key.PACK3_REGISTER, ProductType.Subscription);
