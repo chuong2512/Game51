@@ -148,7 +148,7 @@ public class AudioManager : MonoBehaviour
 
     public void Vibrate()
     {
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
         if (isVibrate)
             Handheld.Vibrate();
 #endif
@@ -170,7 +170,7 @@ public class AudioManager : MonoBehaviour
         isVibrate = !isVibrate;
 
         // demo
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
         if (isVibrate)
             Handheld.Vibrate();
 #endif

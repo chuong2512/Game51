@@ -1,19 +1,18 @@
-﻿
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
+using RObo;
+using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
-    public Text _centerText;
     public Text _score;
-    
+
     public StateGame currentState = StateGame.Pause;
 
     public GameObject lose;
-    public GameObject win;
+    public TextMeshProUGUI textLose;
 
 
     // Use this for initialization
@@ -28,26 +27,27 @@ public class UIManager : MonoBehaviour
 
     public void DisplayGameOver()
     {
-        _centerText.gameObject.SetActive(true);
-        _centerText.text = "Game Over";
+        textLose.text = $"Score : {_scoreInt}";
+        lose.SetActive(true);
     }
 
     public void DisplayWin()
     {
-        _centerText.gameObject.SetActive(true);
-        _centerText.text = "Win";
     }
+
+    int _scoreInt = 0;
 
     public void UpdateScore(int score)
     {
         _score.text = score.ToString();
+
+        _scoreInt = score;
     }
 
     public void DisableText()
     {
-        _centerText.gameObject.SetActive(false);
     }
-    
+
     public void ExitGame()
     {
         SceneManager.LoadScene("Menu");
@@ -56,13 +56,11 @@ public class UIManager : MonoBehaviour
     public void ShowLose()
     {
         currentState = StateGame.Pause;
-        lose.SetActive(true);
     }
 
     public void ShowWin()
     {
         currentState = StateGame.Pause;
-        win.SetActive(true);
     }
 
     public void RestartGame()
@@ -109,5 +107,4 @@ public class UIManager : MonoBehaviour
 
         return true;
     }
-
 }

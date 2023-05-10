@@ -26,7 +26,7 @@ public class InputController : MonoBehaviour
 
     void onReceiveController()
     {
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID && !UNITY_EDITOR
          if (Input.touchCount > 0)
         {
             Touch myTouch = Input.touches[0];

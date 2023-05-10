@@ -63,7 +63,6 @@ public class Knife : MonoBehaviour
         }
         else if(col.gameObject.CompareTag("Knife") && !_isStatic)
         {
-            GameManager.Instance.Lose();
             float ranX =   Random.Range(4.5f, 6f);
             float ranY = - Random.Range(4.5f, 6f);
             _rigidbody.velocity = new Vector2(ranX,ranY);

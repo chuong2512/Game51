@@ -5,7 +5,7 @@ using System.Collections;
 public class Common {
 
     public enum BallColors{
-        None,
+        None = 0,
         Red,
         Blue, 
         Green, 

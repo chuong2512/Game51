@@ -1,11 +1,9 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class GridManager
 {
-
     private GridCell[,] generatedGridWithBalls;
 
     private int _gridSizeX;
@@ -52,7 +50,8 @@ public class GridManager
         }
     }
 
-    #region Logic 
+    #region Logic
+
     public GridCell RegisterBall(int x, int y, Ball ball)
     {
         generatedGridWithBalls[x, y].Ball = ball;
@@ -77,7 +76,7 @@ public class GridManager
     {
         bool boundaryX = (x < _gridSizeX && x >= 0);
         bool boundaryY = (y < _gridSizeY && y >= 0);
-        bool evenOrOdd = (y % 2) == 0 ? true : (x < _gridSizeX - 1);
+        bool evenOrOdd = (y % 2) == 0 || (x < _gridSizeX - 1);
         return boundaryX && boundaryY && evenOrOdd;
     }
 
@@ -87,11 +86,14 @@ public class GridManager
         {
             return generatedGridWithBalls[x, y].Ball != null;
         }
+
         return false;
     }
+
     #endregion
 
     #region Neighbor
+
     public List<GridCell> GetNeighborSameColorBalls(Common.BallColors color, int x, int y)
     {
         List<GridCell> list = new List<GridCell>();
@@ -103,6 +105,7 @@ public class GridManager
                 list.Add(cell);
             }
         }
+
         return list;
     }
 
@@ -156,21 +159,26 @@ public class GridManager
 
     GridCell findNearestGridCellInList(List<GridCell> listNeighbors, Vector3 position)
     {
-        float smallestDistance = 9999;
+        float smallestDistance = 99999999999;
         GridCell nearestCell = null;
+        Debug.Log($"listNeighbors : {listNeighbors.Count}");
+        
         foreach (GridCell gridCell in listNeighbors)
         {
             if (!IsOccupiedBall(gridCell.X, gridCell.Y))
             {
                 float currentDistance = Vector3.Distance(gridCell.Position, position);
 
+                Debug.Log($"currentDistance : {currentDistance}");
+
                 if (currentDistance < smallestDistance)
                 {
                     smallestDistance = currentDistance;
                     nearestCell = gridCell;
                 }
-            } 
+            }
         }
+
         return nearestCell;
     }
 
@@ -184,7 +192,7 @@ public class GridManager
     {
         List<GridCell> sameColors = new List<GridCell>();
         List<GridCell> neighbors = GetNeighborSameColorBalls(bullet.GetBallColor(),
-                                       bullet.GetGridPosition().X, bullet.GetGridPosition().Y);
+            bullet.GetGridPosition().X, bullet.GetGridPosition().Y);
         GridCell mainCell = bullet.GetGridPosition();
         do
         {
@@ -199,22 +207,27 @@ public class GridManager
                     list.Remove(mainCell);
                 listTemp.AddRange(list);
             }
+
             sameColors.AddRange(neighbors);
             neighbors = listTemp;
-        } while(neighbors.Count > 0);
+        } while (neighbors.Count > 0);
+
         return sameColors;
     }
-    #endregion 
+
+    #endregion
 
     #region Holding Balls relate
+
     List<Ball> getListBallsFromListCells(List<GridCell> listCell)
     {
         List<Ball> listBalls = new List<Ball>();
         foreach (GridCell cell in listCell)
         {
-            if(cell.Ball != null)
+            if (cell.Ball != null)
                 listBalls.Add(cell.Ball);
         }
+
         return listBalls;
     }
 
@@ -226,7 +239,6 @@ public class GridManager
 
     List<Ball> GetListUnHoldBallsAndUnHoldFromGridRecursive()
     {
-        
         List<Ball> removedList = new List<Ball>();
         List<GridCell> unDecidedList = new List<GridCell>();
         for (int j = 1; j < _gridSizeY; j++)
@@ -258,10 +270,10 @@ public class GridManager
 
                                     removedList.AddRange(getListBallsFromListCells(list));
                                     list.ForEach(delegate(GridCell c)
-                                        {
-                                            RemoveBallFromGridCell(c);
-                                            unDecidedList.Remove(c);
-                                        });
+                                    {
+                                        RemoveBallFromGridCell(c);
+                                        unDecidedList.Remove(c);
+                                    });
                                 }
                                 else
                                 {
@@ -270,14 +282,15 @@ public class GridManager
                             }
                         }
                     }
-
                 }
             }
+
             unDecidedList.Clear();
-        }  
+        }
+
         if (removedList.Count == 0)
             return removedList;
-        
+
         removedList.AddRange(GetListUnHoldBallsAndUnHoldFromGridRecursive());
         return removedList;
     }
@@ -288,7 +301,7 @@ public class GridManager
         List<GridCell> pairs = new List<GridCell>();
         pairs.Add(new GridCell(cell.X - 1, cell.Y));
         pairs.Add(new GridCell(cell.X + 1, cell.Y));
-     
+
         foreach (GridCell pair in pairs)
         {
             if (IsValidGridPosition(pair.X, pair.Y) && IsOccupiedBall(pair.X, pair.Y))
@@ -296,6 +309,7 @@ public class GridManager
                 parentList.Add(generatedGridWithBalls[pair.X, pair.Y]);
             }
         }
+
         return parentList;
     }
 
@@ -320,6 +334,7 @@ public class GridManager
                 parentList.Add(generatedGridWithBalls[pair.X, pair.Y]);
             }
         }
+
         return parentList;
     }
 
@@ -350,10 +365,12 @@ public class GridManager
                 childList.Add(generatedGridWithBalls[pair.X, pair.Y]);
             }
         }
+
         return childList;
     }
 
-    List<GridCell> getSameLevelNoParentBallBasedCell(GridCell cell){
+    List<GridCell> getSameLevelNoParentBallBasedCell(GridCell cell)
+    {
         List<GridCell> result = new List<GridCell>();
         List<GridCell> listChild = getSameLevelBallsBasedCell(cell);
         foreach (GridCell c in listChild)
@@ -364,10 +381,11 @@ public class GridManager
                 result.Add(c);
             }
         }
+
         return result;
     }
-   
-    #endregion 
+
+    #endregion
 
     #region Debug
 
@@ -379,7 +397,7 @@ public class GridManager
             {
                 if (IsValidGridPosition(i, j))
                 {
-                    GameObject go = (GameObject)GameObject.Instantiate(prefabGrid);
+                    GameObject go = (GameObject) GameObject.Instantiate(prefabGrid);
                     go.transform.parent = pivot;
                     go.transform.localScale = Vector3.one;
                     go.transform.localPosition = transformGridToVectorPosition(i, j);
@@ -389,5 +407,4 @@ public class GridManager
     }
 
     #endregion
-
 }

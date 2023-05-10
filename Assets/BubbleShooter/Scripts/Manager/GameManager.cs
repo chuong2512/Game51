@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using RObo;
 
-public class GameManager : PersistentSingleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     public BallManager ballManager;
     public UIManager uiManager;
@@ -124,7 +124,6 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void OnWarning()
     {
-        AudioManager.Instance.PlaySound(AudioManager.Instance.warning);
 
     }
     #endregion 

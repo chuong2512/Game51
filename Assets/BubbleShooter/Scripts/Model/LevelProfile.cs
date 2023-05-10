@@ -12,7 +12,7 @@ public class LevelProfile  {
 
     public int _initRows;
     public int GetInitRow(){
-        return Mathf.Clamp(_initRows,1,12);
+        return Mathf.Clamp(_initRows,1,131);
     }
 
     public int _numberOfDifferentColors;
